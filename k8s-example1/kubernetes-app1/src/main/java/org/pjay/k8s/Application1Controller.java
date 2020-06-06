@@ -25,4 +25,14 @@ public class Application1Controller {
 				"Welcome to application 1 " + "value of instance variable appMessage is " + appMessage, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/messagefromapp1", method = { RequestMethod.GET }, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<String> messageFromApp1() {
+		return new ResponseEntity<String>(messageFromApp(), HttpStatus.OK);
+	}
+
+	private String messageFromApp() {
+		return "Message from application 1 " + "value of instance variable appMessage is " + appMessage;
+	}
+
 }
