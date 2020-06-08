@@ -6,6 +6,7 @@ package org.pjay.k8s;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +34,13 @@ public class Application2Controller {
 
 	private String messageFromApp() {
 		return "Message from application 2 " + "value of instance variable appMessage is " + appMessage;
+	}
+
+	@RequestMapping(value = "/updateappmessage/{appMessage}", method = { RequestMethod.PUT }, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<String> updateAppName(@PathVariable("appMessage") String applicationMessage) {
+		appMessage = applicationMessage;
+		return new ResponseEntity<String>("appMessage instance variable set to " + appMessage, HttpStatus.OK);
 	}
 
 }
