@@ -26,9 +26,9 @@ public class Application1Controller {
 	RestTemplate restTemplate;
 
 	// When run as spring boot application
-	private static final String LOCAL_URL = "http://localhost:8282";
+	private static final String APP2_LOCAL_URL = "http://localhost:8282";
 	// When deployed as war file
-	// private static final String LOCAL_URL = "http://localhost:8282/app2";
+	// private static final String APP2_LOCAL_URL = "http://localhost:8282/app2";
 
 	@RequestMapping(value = "/", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<String> welcome() {
@@ -57,7 +57,8 @@ public class Application1Controller {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<String[]> app1ToApp2() {
 		String app1ResponseString = messageFromApp();
-		ResponseEntity<String> app2Response = restTemplate.getForEntity(LOCAL_URL + "/messagefromapp2", String.class);
+		ResponseEntity<String> app2Response = restTemplate.getForEntity(APP2_LOCAL_URL + "/messagefromapp2",
+				String.class);
 		String responseMessage[] = { app1ResponseString, app2Response.getBody().toString() };
 		return new ResponseEntity<String[]>(responseMessage, HttpStatus.OK);
 	}
