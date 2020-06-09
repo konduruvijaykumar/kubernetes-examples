@@ -27,7 +27,7 @@ public class Application2Controller {
 
 	// When run as spring boot application
 	private static final String LOCAL_URL = "http://localhost:8181";
-	// when deployed as war file
+	// When deployed as war file
 	// private static final String LOCAL_URL = "http://localhost:8181/app1";
 
 	@RequestMapping(value = "/", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
