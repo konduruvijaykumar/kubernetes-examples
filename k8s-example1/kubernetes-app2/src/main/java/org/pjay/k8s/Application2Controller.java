@@ -63,4 +63,10 @@ public class Application2Controller {
 		return new ResponseEntity<String[]>(responseMessage, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/servicediscoveryurl", method = { RequestMethod.GET }, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<String> serviceDiscoveryUrl() {
+		return new ResponseEntity<String>(APP1_LOCAL_URL, HttpStatus.OK);
+	}
+
 }
