@@ -27,9 +27,9 @@ public class Application2Controller {
 	RestTemplate restTemplate;
 
 	// When run as spring boot application
-	private static final String APP1_LOCAL_URL = "http://localhost:8181";
+	// private static final String APP1_LOCAL_URL = "http://localhost:8181";
 	// When deployed as war file
-	// private static final String APP1_LOCAL_URL = "http://localhost:8181/app1";
+	private static final String APP1_LOCAL_URL = "http://localhost:8181/app1";
 
 	@RequestMapping(value = "/", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<String> welcome() {
