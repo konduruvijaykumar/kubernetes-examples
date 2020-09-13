@@ -1,0 +1,19 @@
+# https://fabric8.io/guide/services.html
+# https://fabric8.io/guide/develop/serviceDiscovery.html
+# https://kubernetes.io/docs/concepts/services-networking/service/
+# https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/
+# https://stackoverflow.com/questions/49981601/difference-between-targetport-and-port-in-kubernetes-service-definition
+# https://www.baeldung.com/spring-boot-minikube
+kind: Service
+apiVersion: v1
+metadata:
+    name: service-app2
+spec:
+    selector:
+      app: kubernetes-app2
+      tier: backend-api-kubernetes-app2
+    ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      
