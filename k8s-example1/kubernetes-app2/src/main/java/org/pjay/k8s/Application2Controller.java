@@ -4,6 +4,7 @@
 package org.pjay.k8s;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,14 @@ public class Application2Controller {
 	// When run as spring boot application
 	// private static final String APP1_LOCAL_URL = "http://localhost:8181";
 	// When deployed as war file
-	private static final String APP1_LOCAL_URL = "http://localhost:8181/app1";
+	// private static final String APP1_LOCAL_URL = "http://localhost:8181/app1";
+	
+	//private String app1_service = "http://service-app1/app1";
+	
+	@Value("${SERVICE_APP1_SERVICE_HOST:service-app1}")
+	private String SERVICE_HOST;
+	@Value("${SERVICE_APP1_SERVICE_PORT:80}")
+	private String SERVICE_PORT;
 
 	@RequestMapping(value = "/", method = { RequestMethod.GET }, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<String> welcome() {
@@ -58,8 +66,9 @@ public class Application2Controller {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<String[]> app2ToApp1() {
 		String app2ResponseString = messageFromApp();
-		ResponseEntity<String> app1Response = restTemplate.getForEntity(APP1_LOCAL_URL + "/messagefromapp1",
-				String.class);
+		// ResponseEntity<String> app1Response = restTemplate.getForEntity(APP1_LOCAL_URL + "/messagefromapp1", String.class);
+		ResponseEntity<String> app1Response = restTemplate.getForEntity(
+				"http://" + SERVICE_HOST + ":" + SERVICE_PORT + "/app1" + "/messagefromapp1", String.class);
 		String responseMessage[] = { app2ResponseString, app1Response.getBody().toString() };
 		return new ResponseEntity<String[]>(responseMessage, HttpStatus.OK);
 	}
@@ -67,7 +76,8 @@ public class Application2Controller {
 	@RequestMapping(value = "/servicediscoveryurl", method = { RequestMethod.GET }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<String> serviceDiscoveryUrl() {
-		return new ResponseEntity<String>(APP1_LOCAL_URL, HttpStatus.OK);
+		// return new ResponseEntity<String>(APP1_LOCAL_URL, HttpStatus.OK);
+		return new ResponseEntity<String>("http://"+SERVICE_HOST+":"+SERVICE_PORT, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/callappurl", method = { RequestMethod.GET }, produces = {
